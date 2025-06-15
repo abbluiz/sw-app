@@ -1,0 +1,5 @@
+{
+    "Error while communicating with an external service.": "Error while communicating with an external service.",
+    "Error while communicating with :service during HTTP :verb request for :url.": "Error while communicating with :service during HTTP :verb request for :url.",
+    "Status code was :code.": "Status code was :code."
+}
