@@ -36,7 +36,7 @@ return [
     ],
 
     'star_wars_api' => [
-        'base_url' => env('STAR_WARS_API_BASE_URL', 'https://swapi.online/api')
-    ]
+        'base_url' => env('STAR_WARS_API_BASE_URL', 'https://swapi.online/api'),
+    ],
 
 ];

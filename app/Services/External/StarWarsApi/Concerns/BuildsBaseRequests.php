@@ -2,9 +2,9 @@
 
 namespace App\Services\External\StarWarsApi\Concerns;
 
-use Illuminate\Support\Facades\Http;
-use Illuminate\Http\Client\PendingRequest;
 use App\Services\External\StarWarsApi\StarWarsApiService;
+use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Support\Facades\Http;
 
 trait BuildsBaseRequests
 {

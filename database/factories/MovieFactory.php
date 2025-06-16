@@ -18,7 +18,7 @@ class MovieFactory extends Factory
     {
         return [
             'title' => fake()->word(),
-            'opening_crawl' => fake()->paragraphs()
+            'opening_crawl' => fake()->paragraphs(),
         ];
     }
 }

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\StarWars;
 
+use App\Enums\SearchMode;
+use App\Http\Controllers\Controller;
+use App\Services\MovieService;
+use App\Services\PersonService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Enums\SearchMode;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use App\Http\Controllers\Controller;
-use App\Repositories\MovieRepository;
-use App\Repositories\PersonRepository;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Validator;
 
 class SearchController extends Controller
 {
@@ -35,18 +35,18 @@ class SearchController extends Controller
         $movies = collect([]);
 
         if ($mode === 'people') {
-            $people = new PersonRepository()->allAndSave($query);
+            $people = app(PersonService::class)->indexAndSave($query);
         }
 
         if ($mode === 'movies') {
-            $movies = new MovieRepository()->allAndSave($query);
+            $movies = app(MovieService::class)->indexAndSave($query);
         }
 
         return Inertia::render(
             component: 'search',
             props: [
                 'people' => $people->all(),
-                'movies' => $movies->all()
+                'movies' => $movies->all(),
             ]
         );
     }

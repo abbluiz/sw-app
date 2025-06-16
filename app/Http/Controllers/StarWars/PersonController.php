@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers\StarWars;
 
+use App\Http\Controllers\Controller;
+use App\Services\PersonService;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Models\Person;
-use App\Http\Controllers\Controller;
 
 class PersonController extends Controller
 {
     public function show(string|int $id): Response
     {
-        return Inertia::render('people/show', ['person' => Person::find($id)]);
+        $result = app(PersonService::class)->showAndSave($id, true);
+
+        return Inertia::render('people/show', ['person' => [
+            ...$result->toArray(),
+            'movies' => $result->movies
+        ]]);
     }
 }

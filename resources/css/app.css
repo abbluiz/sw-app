@@ -269,10 +269,19 @@ body {
     background-color: #fff;
 }
 
+.sw-entity-relation-link {
+    color: var(--emerald);
+}
+
+.sw-entity-relation-link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .divider {
     /* width: 261px; */
     height: 2px;
-    margin: 5px 0 105.5px;
+    margin: 5px 0;
     background-color: var(--pinkish-grey);
 }
 
@@ -280,6 +289,26 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.sw-details-card {
+    /* width: 402px;
+    height: 208.5px;*/
+    margin: 15px 159px 0;
+    padding: 15px;
+    border-radius: 2px;
+    box-shadow: 0 0.5px 1px 0 var(--warm-grey-75);
+    border: solid 0.5px var(--warm-grey-75);
+    background-color: #fff;
+}
+
+.sw-details-inner-container {
+    margin-top: 10px;
+    display: flex;
+}
+
+.sw-details {
+    margin-right: 15%;
 }
 
 .sw-query-input {

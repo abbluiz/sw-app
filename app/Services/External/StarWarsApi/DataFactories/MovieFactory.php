@@ -8,27 +8,27 @@ use Illuminate\Support\Collection;
 final class MovieFactory
 {
     /**
-     * @param array<string, mixed>[] $movies
+     * @param  array<string, mixed>[]  $movies
      * @return Collection<int, Movie>
      */
     public static function collection(array $movies): Collection
     {
         return (new Collection(items: $movies))
-            ->map(fn ($movie): Movie => static::new(attributes: $movie));
+            ->map(fn ($movie): Movie => self::new(attributes: $movie));
     }
 
     /**
-     * @param array<string, mixed> $attributes
+     * @param  array<string, mixed>  $attributes
      */
     public static function new(mixed $attributes): Movie
     {
-        return (new self())->make(
+        return (new self)->make(
             attributes: $attributes
         );
     }
 
     /**
-     * @param array<string, mixed> $attributes
+     * @param  array<string, mixed>  $attributes
      */
     public function make(mixed $attributes): Movie
     {
@@ -41,12 +41,12 @@ final class MovieFactory
     }
 
     /**
-     * @param array<string, mixed> $attributes
+     * @param  array<string, mixed>  $attributes
      */
     public static function fake(
         array $attributes = [],
     ): Movie {
-        return static::new([
+        return self::new([
             'url' => $attributes['url'] ?? fake()->url(),
             'title' => $attributes['title'] ?? fake()->word(),
             'opening_crawl' => $attributes['opening_crawl'] ?? fake()->paragraphs(),
@@ -55,7 +55,7 @@ final class MovieFactory
     }
 
     /**
-     * @param array<string, mixed>[] $movies
+     * @param  array<string, mixed>[]  $movies
      * @return Collection<int, Movie>
      */
     public static function fakeCollection(
@@ -71,13 +71,13 @@ final class MovieFactory
             $count = 1;
         }
 
-        $mockedData = array();
+        $mockedData = [];
 
         for ($i = 0; $i < $count; $i++) {
             if (! $overrideMockedData) {
-                $mockedData[] = static::fake()->toArray();
+                $mockedData[] = self::fake()->toArray();
             } else {
-                $mockedData[] = static::fake([
+                $mockedData[] = self::fake([
                     'url' => $movies[$i]['url'] ?? null,
                     'title' => $movies[$i]['title'] ?? null,
                     'opening_crawl' => $movies[$i]['opening_crawl'] ?? null,
@@ -86,18 +86,18 @@ final class MovieFactory
             }
         }
 
-        return static::collection($mockedData);
+        return self::collection($mockedData);
     }
 
     /**
-     * @param array<string, mixed>[] $movies
+     * @param  array<string, mixed>[]  $movies
      * @return array<int, array<string, mixed>>
      */
     public static function fakeArray(
         int $count = 1,
         array $movies = []
     ): array {
-        return static::fakeCollection($count, $movies)
+        return self::fakeCollection($count, $movies)
             ->map(function (Movie $item, int $key) {
                 return $item->toArray();
             })->toArray();

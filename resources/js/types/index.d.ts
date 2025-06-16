@@ -46,10 +46,17 @@ export interface Person {
     id: number;
     name: string;
     gender: string;
+    birth_year: string;
+    eye_color: string;
+    hair_color: string;
+    height_in_cm: string;
+    mass_in_kg: string;
+    movies: Array<Movie>
 };
 
 export interface Movie {
     id: number;
     title: string;
-    openingCrawl: string;
+    opening_crawl: string;
+    people: Array<Person>
 };

@@ -2,13 +2,13 @@
 
 namespace App\Services\External\StarWarsApi;
 
-use Illuminate\Http\Client\Response;
-use Illuminate\Http\Client\PendingRequest;
-use App\Services\External\StarWarsApi\Resources\MovieResource;
-use App\Services\External\StarWarsApi\Resources\PersonResource;
 use App\Services\External\StarWarsApi\Concerns\BuildsBaseRequests;
 use App\Services\External\StarWarsApi\Concerns\CanSendGetRequests;
 use App\Services\External\StarWarsApi\Concerns\CanThrowExceptions;
+use App\Services\External\StarWarsApi\Resources\MovieResource;
+use App\Services\External\StarWarsApi\Resources\PersonResource;
+use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\Response;
 
 class StarWarsApiService
 {

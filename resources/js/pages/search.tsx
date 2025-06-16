@@ -86,28 +86,26 @@ export default function Search({ people, movies }: SearchProps) {
     return (
         <SimpleLayout title="Search">
             <div className="sw-search">
-                <>
-                    <div className="text-style sw-search-container">
-                        <label htmlFor="query" className="font-semibold">
-                            What are you searching for?
-                        </label><br />
-                        <input type="radio" id="people" name="search_mode" value="people" checked={mode === 'people'} onChange={handleModeChange} />
-                        <label htmlFor="people">People</label>
-                        <input type="radio" id="movies" name="search_mode" value="movies" checked={mode === 'movies'} onChange={handleModeChange} />
-                        <label htmlFor="movies">Movies</label><br />
-                        <input className="sw-query-input" id="query" value={query} onChange={handleQueryChange} /><br />
-                        <Link disabled={query === ""} className={query === "" ? "font-bold sw-button sw-disabled-button" : "font-bold sw-button"} method="get" href={route('search')} data={{ query: query, mode: mode }} as="button">
-                            SEARCH
-                        </Link>
-                    </div>
-                    <div className="sw-search-results">
-                        <span className="text-style font-bold text-results-title">
-                            Results
-                        </span>
-                        <div className="divider"></div>
-                        {renderResults(mode, people, movies)}
-                    </div>
-                </>
+                <div className="text-style sw-search-container">
+                    <label htmlFor="query" className="font-semibold">
+                        What are you searching for?
+                    </label><br />
+                    <input type="radio" id="people" name="search_mode" value="people" checked={mode === 'people'} onChange={handleModeChange} />
+                    <label htmlFor="people">People</label>
+                    <input type="radio" id="movies" name="search_mode" value="movies" checked={mode === 'movies'} onChange={handleModeChange} />
+                    <label htmlFor="movies">Movies</label><br />
+                    <input className="sw-query-input" id="query" value={query} onChange={handleQueryChange} /><br />
+                    <Link disabled={query === ""} className={query === "" ? "font-bold sw-button sw-disabled-button" : "font-bold sw-button"} method="get" href={route('search')} data={{ query: query, mode: mode }} as="button">
+                        SEARCH
+                    </Link>
+                </div>
+                <div className="sw-search-results">
+                    <span className="text-style font-bold text-results-title">
+                        Results
+                    </span>
+                    <div className="divider"></div>
+                    {renderResults(mode, people, movies)}
+                </div>
             </div>
         </SimpleLayout>
     );

@@ -22,7 +22,7 @@ class PersonFactory extends Factory
             'eye_color',
             'hair_color',
             'height_in_cm',
-            'mass_in_kg'
+            'mass_in_kg',
         ];
     }
 }

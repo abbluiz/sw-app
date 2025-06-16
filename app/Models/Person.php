@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use App\Enums\Gender;
+use Carbon\Carbon;
 use Database\Factories\PersonFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id Identifier
  * @property string $name Name
+ * @property string $birth_year Birth Year
  * @property Gender $gender Gender
  * @property string $eye_color Eye Color
  * @property string $hair_color Hair Color
@@ -20,7 +21,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $mass_in_kg Mass (in kilograms)
  * @property ?Carbon $created_at
  * @property ?Carbon $updated_at
- *
  * @property Collection<int, Movie> $movies List of Movies the Person is in
  */
 class Person extends Model
@@ -36,11 +36,12 @@ class Person extends Model
     protected $fillable = [
         'id',
         'name',
+        'birth_year',
         'gender',
         'eye_color',
         'hair_color',
         'height_in_cm',
-        'mass_in_kg'
+        'mass_in_kg',
     ];
 
     /**

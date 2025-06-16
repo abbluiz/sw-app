@@ -2,19 +2,19 @@
 
 namespace App\Services\External\StarWarsApi\Resources;
 
-use Illuminate\Support\Collection;
+use App\Jobs\SyncMovieRelation;
 use App\Models\Movie as EloquentMovie;
+use App\Services\External\StarWarsApi\DataFactories\MovieFactory;
 use App\Services\External\StarWarsApi\DataObjects\Movie;
 use App\Services\External\StarWarsApi\StarWarsApiService;
-use App\Services\External\StarWarsApi\DataFactories\MovieFactory;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 class MovieResource
 {
     public function __construct(
         private readonly StarWarsApiService $service,
-    ) {
-    }
+    ) {}
 
     public function show(
         string $identifier
@@ -38,10 +38,10 @@ class MovieResource
     public function index(
         ?string $searchParam = null
     ): ?Collection {
-        $url = "/films/";
+        $url = '/films/';
 
-        if (!empty($searchParam)) {
-            $url = $url . "?search=$searchParam";
+        if (! empty($searchParam)) {
+            $url = $url."?search=$searchParam";
         }
 
         $request = $this->service
@@ -58,6 +58,33 @@ class MovieResource
         return null;
     }
 
+    public function showAndSave(
+        int|string $identifier
+    ): void {
+        $result = $this->show($identifier);
+
+        if (! empty($result)) {
+            $entity = EloquentMovie::query()->updateOrCreate(
+                attributes: ['id' => $identifier],
+                values: [
+                    'id' => $identifier,
+                    ...$result->toArray(),
+                ]
+            );
+
+            Arr::map($result->personUrls, function (string $personUrl) use ($entity) {
+                $re = '/people\/(\d+)/m';
+                preg_match_all($re, $personUrl, $matches, PREG_SET_ORDER, 0);
+
+                $id = intval($matches[0][1]);
+
+                SyncMovieRelation::dispatch($entity, $id);
+
+                return $id;
+            });
+        }
+    }
+
     public function indexAndSave(
         ?string $searchParam = null
     ): void {
@@ -69,13 +96,24 @@ class MovieResource
 
             $id = intval($matches[0][1]);
 
-            EloquentMovie::query()->updateOrCreate(
+            $entity = EloquentMovie::query()->updateOrCreate(
                 attributes: ['id' => $id],
                 values: [
                     'id' => $id,
-                    ...$item->toArray()
+                    ...$item->toArray(),
                 ]
             );
+
+            Arr::map($item->personUrls, function (string $personUrl) use ($entity) {
+                $re = '/people\/(\d+)/m';
+                preg_match_all($re, $personUrl, $matches, PREG_SET_ORDER, 0);
+
+                $id = intval($matches[0][1]);
+
+                SyncMovieRelation::dispatch($entity, $id);
+
+                return $id;
+            });
         });
     }
 }
