@@ -2,6 +2,7 @@
 
 namespace App\Services\External\StarWarsApi\Resources;
 
+use App\Models\Person as EloquentPerson;
 use App\Services\External\StarWarsApi\DataObjects\Person;
 use App\Services\External\StarWarsApi\StarWarsApiService;
 use App\Services\External\StarWarsApi\DataFactories\PersonFactory;
@@ -54,5 +55,28 @@ class PersonResource
         }
 
         return null;
+    }
+
+    public function indexAndSave(
+        ?string $searchParam = null
+    ): void {
+        $results = $this->index($searchParam);
+
+        $results->each(function (Person $item, int $key) {
+            $re = '/people\/(\d+)/m';
+            preg_match_all($re, $item->url, $matches, PREG_SET_ORDER, 0);
+
+            $id = intval($matches[0][1]);
+
+            EloquentPerson::query()->updateOrCreate(
+                attributes: ['id' => $id],
+                values: [
+                    'id' => $id,
+                    'mass_in_kg' => $item->mass,
+                    'height_in_cm' => $item->height,
+                    ...$item->toArray()
+                ]
+            );
+        });
     }
 }

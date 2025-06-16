@@ -8,8 +8,8 @@ enum Gender: string
 {
     use Values;
 
-    case MALE = 'Male';
-    case FEMALE = 'Female';
+    case MALE = 'male';
+    case FEMALE = 'female';
     case UNKNOWN = 'unknown';
     case NOT_APPLICABLE = 'n/a';
 }

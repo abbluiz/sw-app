@@ -1,44 +1,28 @@
-import { type SharedData } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
+import SimpleLayout from '@/layouts/simple-layout';
 
 export default function Welcome() {
-    const { auth } = usePage<SharedData>().props;
-
     return (
-        <>
-            <Head title="Welcome">
-                <link rel="preconnect" href="https://fonts.bunny.net" />
-                <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-            </Head>
-            <div>
-                <header>
-                    <span>
-                        SWStarter
-                    </span>
-                    <nav>
-                        {auth.user ? (
-                            <Link
-                                href={route('dashboard')}
-                            >
-                                Dashboard
-                            </Link>
-                        ) : (
-                            <>
-                                <Link
-                                    href={route('login')}
-                                >
-                                    Log in
-                                </Link>
-                                <Link
-                                    href={route('register')}
-                                >
-                                    Register
-                                </Link>
-                            </>
-                        )}
-                    </nav>
-                </header>
+        <SimpleLayout title="Welcome">
+            <div className="sw-auth-required">
+                <>
+                    <p className="text-style sw-auth-required-item">
+                        Welcome! Please authenticated yourself to use our application.
+                    </p>
+                    <Link
+                        className="sw-auth-required-item sw-button"
+                        href={route('login')}
+                    >
+                        LOG IN
+                    </Link>
+                    <Link
+                        className="sw-auth-required-item sw-button"
+                        href={route('register')}
+                    >
+                        REGISTER
+                    </Link>
+                </>
             </div>
-        </>
+        </SimpleLayout>
     );
 }

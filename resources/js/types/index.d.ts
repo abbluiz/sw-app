@@ -41,3 +41,15 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface Person {
+    id: number;
+    name: string;
+    gender: string;
+};
+
+export interface Movie {
+    id: number;
+    title: string;
+    openingCrawl: string;
+};

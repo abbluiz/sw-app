@@ -34,6 +34,7 @@ class Person extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'id',
         'name',
         'gender',
         'eye_color',

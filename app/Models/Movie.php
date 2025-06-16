@@ -28,6 +28,7 @@ class Movie extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'id',
         'title',
         'opening_crawl'
     ];
