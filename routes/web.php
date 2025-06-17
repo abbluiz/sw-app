@@ -14,10 +14,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/people/{id}', [PersonController::class, 'show'])->name('people.show');
     Route::get('/movies/{id}', [MovieController::class, 'show'])->name('movies.show');
-
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
 });
 
 require __DIR__.'/settings.php';

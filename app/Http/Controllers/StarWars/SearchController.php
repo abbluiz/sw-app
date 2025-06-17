@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\StarWars;
 
+use Inertia\Inertia;
+use App\Models\Query;
+use Inertia\Response;
 use App\Enums\SearchMode;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Services\MovieService;
 use App\Services\PersonService;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Inertia\Inertia;
-use Inertia\Response;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Validator;
 
 class SearchController extends Controller
 {
@@ -40,6 +41,10 @@ class SearchController extends Controller
 
         if ($mode === 'movies') {
             $movies = app(MovieService::class)->indexAndSave($query);
+        }
+
+        if (! empty($query)) {
+            Query::create([...$request->query()]);
         }
 
         return Inertia::render(
