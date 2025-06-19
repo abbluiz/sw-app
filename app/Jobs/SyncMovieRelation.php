@@ -35,7 +35,7 @@ class SyncMovieRelation implements ShouldQueue
 
             $person = $personRepository->find($this->personId);
 
-            if (empty($entity)) {
+            if (empty($person)) {
                 $person = $personService->showAndSave($this->personId);
             }
 

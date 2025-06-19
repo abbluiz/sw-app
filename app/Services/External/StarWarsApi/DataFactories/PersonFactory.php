@@ -54,7 +54,7 @@ final class PersonFactory
         return self::new([
             'url' => $attributes['url'] ?? fake()->url(),
             'name' => $attributes['name'] ?? fake()->name(),
-            'birth_year' => $atributes['birth_year'] ?? fake()->year(),
+            'birth_year' => $attributes['birth_year'] ?? fake()->year(),
             'gender' => $attributes['gender'] ?? fake()->randomElement(Gender::values()),
             'eye_color' => $attributes['eye_color'] ?? fake()->colorName(),
             'hair_color' => $attributes['hair_color'] ?? fake()->colorName(),
