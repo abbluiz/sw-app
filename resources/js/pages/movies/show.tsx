@@ -17,26 +17,30 @@ function PersonLink(person: Person) {
 export default function ShowMovie({ movie }: ShowMovieProps) {
     return (
         <SimpleLayout title="Movie Details">
-            <div className="text-style sw-details-card">
-                <span className="font-bold">{movie.title}</span>
-                <div className="sw-details-inner-container">
-                    <div className="sw-details">
-                        <span className="font-bold">Opening Crawl</span>
-                        <div className="divider"></div>
-                        {movie.opening_crawl}
+            <div className="details-container">
+                <h2 className="font-semibold">{movie.title}</h2>
+
+                <div className="details-content">
+                    <div className="details-left">
+                        <h4 className="font-semibold">Details</h4>
+                        <hr />
+                        <p className="opening-crawl">{movie.opening_crawl}</p>
+                        <Link className="font-bold back-button" method="get" href={route('search')} as="button">
+                            BACK TO SEARCH
+                        </Link>
                     </div>
-                    <div className="sw-related-entities">
-                        <span className="font-bold">People</span>
-                        <div className="divider"></div>
-                        {movie.people.map((person, i) => [
-                            i > 0 && ", ",
-                            <PersonLink key={i} {...person} />
-                        ])}
+
+                    <div className="details-right">
+                        <h4 className="font-semibold">Characters</h4>
+                        <hr />
+                        <div>
+                            {movie.people.map((person, i) => [
+                                i > 0 && ", ",
+                                <PersonLink key={i} {...person} />
+                            ])}
+                        </div>
                     </div>
                 </div>
-                <Link className="font-bold sw-button" method="get" href={route('search')} as="button">
-                    BACK TO SEARCH
-                </Link>
             </div>
         </SimpleLayout>
     );

@@ -17,7 +17,7 @@ function MovieLink(movie: Movie) {
 export default function ShowMovie({ person }: ShowPersonProps) {
     return (
         <SimpleLayout title="Person Details">
-            <div className="text-style sw-details-card">
+            {/* <div className="text-style sw-details-card">
                 <span className="font-bold">{person.name}</span>
                 <div className="sw-details-inner-container">
                     <div className="sw-details">
@@ -42,6 +42,36 @@ export default function ShowMovie({ person }: ShowPersonProps) {
                 <Link className="font-bold sw-button" method="get" href={route('search')} as="button">
                     BACK TO SEARCH
                 </Link>
+            </div> */}
+            <div className="details-container">
+                <h2 className="font-semibold">{person.name}</h2>
+
+                <div className="details-content">
+                    <div className="details-left">
+                        <h4 className="font-semibold">Details</h4>
+                        <hr />
+                        <p>Birth Year: {person.birth_year}</p>
+                        <p>Gender: {person.gender}</p>
+                        <p>Eye Color: {person.eye_color}</p>
+                        <p>Hair Color: {person.hair_color}</p>
+                        <p>Height: {person.height_in_cm}</p>
+                        <p>Mass: {person.mass_in_kg}</p>
+                        <Link className="font-bold back-button" method="get" href={route('search')} as="button">
+                            BACK TO SEARCH
+                        </Link>
+                    </div>
+
+                    <div className="details-right">
+                        <h4 className="font-semibold">Movies</h4>
+                        <hr />
+                        <div>
+                            {person.movies.map((movie, i) => [
+                                i > 0 && ", ",
+                                <MovieLink key={i} {...movie} />
+                            ])}
+                        </div>
+                    </div>
+                </div>
             </div>
         </SimpleLayout>
     );
