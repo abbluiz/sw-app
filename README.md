@@ -77,6 +77,14 @@ $ ./vendor/bin/sail npm run dev
 
 Hope you like it!
 
+### Runing the Queue Worker
+
+It's neccessary to run the queue worker on a separate terminal for some features to work:
+
+```console
+$ ./vendor/bin/sail artisan queue:work 
+```
+
 ## Running Tests and Measuring Code Coverage
 
 In order to run tests with PHPUnit:
